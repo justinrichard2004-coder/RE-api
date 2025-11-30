@@ -119,11 +119,6 @@ app.post("/api/rental-cashflow", (req, res) => {
   });
 });
 
-// Use Railway's PORT if available, otherwise 3000 locally
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Real Estate API listening on port ${PORT}`);
-});
 // =========================
 // DSCR Calculation
 // =========================
@@ -310,4 +305,10 @@ app.post("/api/ltc", (req, res) => {
     totalCost,
     ltcPercent: Number(ltc.toFixed(2))
   });
+});
+
+// Start server LAST — make sure all routes load first
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Real Estate API listening on port ${PORT}`);
 });
