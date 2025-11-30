@@ -1,0 +1,23 @@
+{
+  "name": "re-api",
+  "version": "1.0.0",
+  "description": "Simple real estate valuation API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "real-estate",
+    "api",
+    "valuation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
