@@ -307,6 +307,62 @@ app.post("/api/ltc", (req, res) => {
   });
 });
 
+// =========================
+// Break-Even Occupancy
+// =========================
+app.post("/api/break-even-occupancy", (req, res) => {
+  const { operatingExpenses, annualDebtService, grossPotentialRent } = req.body;
+
+  if (
+    operatingExpenses == null ||
+    annualDebtService == null ||
+    grossPotentialRent == null ||
+    grossPotentialRent <= 0
+  ) {
+    return res.status(400).json({
+      error:
+        "Missing fields (operatingExpenses, annualDebtService, grossPotentialRent) or grossPotentialRent <= 0",
+    });
+  }
+
+  const requiredIncome = Number(operatingExpenses) + Number(annualDebtService);
+  const occ = requiredIncome / Number(grossPotentialRent);
+
+  res.json({
+    operatingExpenses: Number(operatingExpenses),
+    annualDebtService: Number(annualDebtService),
+    grossPotentialRent: Number(grossPotentialRent),
+    breakEvenOccupancyPercent: Number((occ * 100).toFixed(2)),
+  });
+});
+
+
+// =========================
+// Operating Expense Ratio
+// =========================
+app.post("/api/op-ex-ratio", (req, res) => {
+  const { operatingExpenses, effectiveGrossIncome } = req.body;
+
+  if (
+    operatingExpenses == null ||
+    effectiveGrossIncome == null ||
+    effectiveGrossIncome <= 0
+  ) {
+    return res.status(400).json({
+      error:
+        "Missing fields (operatingExpenses, effectiveGrossIncome) or effectiveGrossIncome <= 0",
+    });
+  }
+
+  const ratio = Number(operatingExpenses) / Number(effectiveGrossIncome);
+
+  res.json({
+    operatingExpenses: Number(operatingExpenses),
+    effectiveGrossIncome: Number(effectiveGrossIncome),
+    opExRatioPercent: Number((ratio * 100).toFixed(2)),
+  });
+});
+
 // Start server LAST — make sure all routes load first
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
