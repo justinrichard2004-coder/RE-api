@@ -311,5 +311,3 @@ app.post("/api/ltc", (req, res) => {
     ltcPercent: Number(ltc.toFixed(2))
   });
 });
-
-\
